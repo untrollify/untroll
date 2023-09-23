@@ -1,23 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>UnTroll</title>
+    <title>Convert .tipa to .ipa, Online!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid #d3d3d3;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 18px;
+            opacity: 0.6;
+        }
+
+        .box {
+            border: 1px solid #d3d3d3;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .file-label {
+            font-family: monospace;
+        }
+
+        .button {
+            background-color: #ff5733;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <form id="fileForm" enctype="multipart/form-data">
-        <label for="fileInput">Select a .tipa file:</label>
-        <input type="file" id="fileInput" accept=".tipa">
-        <button type="button" onclick="convertFile()">Convert File</button>
-    </form>
-
-    <p id="result"></p>
-    <a id="downloadLink" style="display: none">Download Converted File</a>
+    <div class="container">
+        <h1>Convert .tipa to .ipa, Online!</h1>
+        <div class="box">
+            <div class="label">Selected:</div>
+            <div class="file-label" id="selectedFileName">No File Selected</div>
+            <div class="label">Result:</div>
+            <div class="file-label" id="resultFileName"></div>
+        </div>
+        <button class="button" onclick="convertFile()">Select File</button>
+    </div>
 
     <script>
         function convertFile() {
             const fileInput = document.getElementById("fileInput");
-            const resultMessage = document.getElementById("result");
-            const downloadLink = document.getElementById("downloadLink");
+            const selectedFileName = document.getElementById("selectedFileName");
+            const resultFileName = document.getElementById("resultFileName");
 
             if (fileInput.files.length > 0) {
                 const selectedFile = fileInput.files[0];
@@ -26,17 +75,15 @@
 
                 if (fileExtension === 'tipa') {
                     const newFileName = fileName.replace('tipa', 'ipa');
-                    downloadLink.href = URL.createObjectURL(selectedFile);
-                    downloadLink.download = newFileName;
-                    downloadLink.style.display = "block";
-                    resultMessage.textContent = `Converted file name: ${newFileName}`;
+                    selectedFileName.textContent = fileName;
+                    resultFileName.textContent = newFileName;
                 } else {
-                    downloadLink.style.display = "none";
-                    resultMessage.textContent = "Please select a .tipa file.";
+                    selectedFileName.textContent = "Please select a .tipa file.";
+                    resultFileName.textContent = "";
                 }
             } else {
-                downloadLink.style.display = "none";
-                resultMessage.textContent = "Please select a file.";
+                selectedFileName.textContent = "No File Selected";
+                resultFileName.textContent = "";
             }
         }
     </script>
