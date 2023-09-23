@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change File Extension</title>
+</head>
+<body>
+    <form id="fileForm" enctype="multipart/form-data">
+        <label for="fileInput">Select a .tipa file:</label>
+        <input type="file" id="fileInput" accept=".tipa">
+        <button type="button" onclick="convertFile()">Convert File</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+        function convertFile() {
+            const fileInput = document.getElementById("fileInput");
+            const resultMessage = document.getElementById("result");
+
+            if (fileInput.files.length > 0) {
+                const selectedFile = fileInput.files[0];
+                const fileName = selectedFile.name;
+                const fileExtension = fileName.split('.').pop();
+
+                if (fileExtension === 'tipa') {
+                    const newFileName = fileName.replace('tipa', 'ipa');
+                    resultMessage.textContent = `Converted file name: ${newFileName}`;
+                } else {
+                    resultMessage.textContent = "Please select a .tipa file.";
+                }
+            } else {
+                resultMessage.textContent = "Please select a file.";
+            }
+        }
+    </script>
+</body>
+</html>
