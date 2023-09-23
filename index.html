@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Change File Extension</title>
+    <title>UnTroll</title>
 </head>
 <body>
     <form id="fileForm" enctype="multipart/form-data">
@@ -11,11 +11,13 @@
     </form>
 
     <p id="result"></p>
+    <a id="downloadLink" style="display: none">Download Converted File</a>
 
     <script>
         function convertFile() {
             const fileInput = document.getElementById("fileInput");
             const resultMessage = document.getElementById("result");
+            const downloadLink = document.getElementById("downloadLink");
 
             if (fileInput.files.length > 0) {
                 const selectedFile = fileInput.files[0];
@@ -24,11 +26,16 @@
 
                 if (fileExtension === 'tipa') {
                     const newFileName = fileName.replace('tipa', 'ipa');
+                    downloadLink.href = URL.createObjectURL(selectedFile);
+                    downloadLink.download = newFileName;
+                    downloadLink.style.display = "block";
                     resultMessage.textContent = `Converted file name: ${newFileName}`;
                 } else {
+                    downloadLink.style.display = "none";
                     resultMessage.textContent = "Please select a .tipa file.";
                 }
             } else {
+                downloadLink.style.display = "none";
                 resultMessage.textContent = "Please select a file.";
             }
         }
