@@ -1,41 +1,84 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#2196f3">
-    <title>UnTroll</title>
-    <link rel="stylesheet" href="/other/framework7.bundle.min.css">
-  </head>
-  <body>
-    <div id="app">
-      <div class="statusbar"></div>
-      
-      <div class="view view-main">
-        <div data-name="home" class="page">
-          <div class="navbar">
-            <div class="navbar-inner">
-              <div class="title">Awesome App</div>
-            </div>
-          </div>
 
-          <div class="toolbar toolbar-bottom">
-            <div class="toolbar-inner">
-              <a href="#" class="link">Link 1</a>
-              <a href="#" class="link">Link 2</a>
-            </div>
-          </div>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <link rel="apple-touch-icon" sizes="192x192" href="smallIcon.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="largeIcon.png">
+  <link rel="manifest" href="/manifest.json">
 
-          <div class="page-content">
-            <p>Page content goes here</p>
-            <a href="/about/">About app</a>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    .hidden {
+      visibility: hidden;
+    }
+
+    /* Add padding to the list items */
+    .ons-list-item {
+      padding: 10px;
+    }
+
+    /* Add padding to the button */
+    .ons-button {
+      padding: 10px;
+    }
+
+  </style>
+</head>
+
+<body onload="ons.notification.alert('Welcome to UnTroll!');">
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">UnTroll</div>
+    </ons-toolbar>
+
+    <ons-tabbar swipeable position="auto">
+      <ons-tab page="main" label="" icon="md-file" active></ons-tab>
+      <ons-tab page="settings" label="" icon="md-settings" actiive></ons-tab>
+    </ons-tabbar>
+  </ons-page>
+
+  <template id="main">
+    <ons-page id="main">
+      <ons-list>
+        <ons-list-item>Item B</ons-list-item>
+        <ons-list-item>Item C</ons-list-item>
+      </ons-list>
+      <ons-button modifier="large">large</ons-button>
+      <ons-list>
+        <ons-list-item>
+          <div class="left">
+            <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
           </div>
-        </div>
-      </div>
-    </div>
-    <script type="text/javascript" src="/other/framework7.bundle.min.js"></script>
-    <script type="text/javascript" src="/other/script.js"></script>
-  </body>
+          <div class="center">
+            <span class="list-item__title">Made with ❤️</span><span class="list-item__subtitle">By GenericApple</span>
+          </div>
+        </ons-list-item>
+      </ons-list>
+    </ons-page>
+  </template>
+
+  <template id="settings">
+    <ons-page id="settings"></ons-page>
+  </template>
+
+  <script>
+    // VERSION: 1
+    if (ons.platform.isIPhoneX()) {
+      document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
+      document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+      ons.notification.alert('UnTroll has slight issues with Rendering the UI on your device...\nWe will try our best!');
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log("Service Worker Registered"))
+        .catch(e => console.log(e));
+    }
+  </script>
+</body>
+
 </html>
